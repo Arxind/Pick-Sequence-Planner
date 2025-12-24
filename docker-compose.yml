@@ -1,0 +1,20 @@
+services:
+  ros2-jazzy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      platforms:
+        - linux/arm64
+    image: osrf/ros:jazzy-desktop
+    container_name: ros2_jazzy
+    environment:
+      - DISPLAY=$(ipconfig getifaddr en0):0
+      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-0}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw # X11 Socket for gui
+      - ./ros2_ws:/ros2_ws # Persit changes between container runs
+      - ./home:/home/ros # Persit user config
+    network_mode: host
+    stdin_open: true
+    tty: true
+    privileged: true
