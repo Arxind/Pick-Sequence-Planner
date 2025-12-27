@@ -1,4 +1,5 @@
-FROM ros:jazzy-ros-base
+FROM osrf/ros:jazzy-desktop
+# ros:jazzy-ros-base
 
 # Set up for ARM64
 ENV ROS_DISTRO=jazzy

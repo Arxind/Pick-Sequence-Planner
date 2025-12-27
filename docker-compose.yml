@@ -8,13 +8,16 @@ services:
     image: osrf/ros:jazzy-desktop
     container_name: ros2_jazzy
     environment:
-      - DISPLAY=$(ipconfig getifaddr en0):0
+      - DISPLAY=${DISPLAY:-host.docker.internal:0}
       - ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-0}
+      - QT_X11_NO_MITSHM=1
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw # X11 Socket for gui
       - ./ros2_ws:/ros2_ws # Persit changes between container runs
       - ./home:/home/ros # Persit user config
-    network_mode: host
+    # network_mode: host
+    ports:
+      - "11311:11311"
     stdin_open: true
     tty: true
     privileged: true
